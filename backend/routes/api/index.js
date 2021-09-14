@@ -13,23 +13,23 @@ router.use("/users", usersRouter);
 router.use("/notes", notesRouter);
 router.use("/notebooks", notebooksRouter);
 
-router.get('/', asyncHandler(async function (req, res) {
-  const notes = await Note.findAll({
-    order: [['createdAt', 'DESC']],
-    include: [User],
-    limit: 4
-  })
-  const notebooks = await Notebook.findAll({
-    order: [['createdAt', 'DESC']],
-    include: [User],
-    limit: 4
-  })
+// router.get('/', asyncHandler(async function (req, res) {
+//   const notes = await Note.findAll({
+//     order: [['createdAt', 'DESC']],
+//     include: [User],
+//     limit: 4
+//   })
+//   const notebooks = await Notebook.findAll({
+//     order: [['createdAt', 'DESC']],
+//     include: [User],
+//     limit: 4
+//   })
 
-  return res.json({
-    notes,
-    notebooks
-  });
-}))
+//   return res.json({
+//     notes,
+//     notebooks
+//   });
+// }))
 
 
 

@@ -12,9 +12,7 @@ router.get(
   asyncHandler(async function (req, res) {
     const notes = await Note.findAll();
 
-    return res.json({
-      notes
-    });
+    return res.json(notes);
   })
 );
 
