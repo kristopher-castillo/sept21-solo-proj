@@ -22,6 +22,7 @@ router.post("/", asyncHandler(async (req, res) => {
   console.log("------------", req.body)
   const note = await Note.build({ title, content, userId});
   console.log("Note from route", note)
+  await note.save();
   res.json(note);
 }));
 //TO DO: ADD VALIDATIONS TO POST
