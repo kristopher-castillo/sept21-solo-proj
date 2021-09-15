@@ -22,8 +22,16 @@ router.post("/", csrfProtection, asyncHandler(async (req, res) => {
   const note = await Note.create(req.body);
   res.json(note);
 }));
-
 //TO DO: ADD VALIDATIONS TO POST
+
+router.delete("/:id(\\d+)", asyncHandler(async (req, res) => {
+  const noteId = parseInt(req.params.id, 10);
+  const note = await Note.findByPk(noteId)
+
+  if (note) {
+    await note.destroy()
+  }
+}))
 
 
 module.exports = router;
