@@ -1,4 +1,6 @@
 const express = require("express");
+const csrf = require('csurf');
+const csrfProtection = csrf({ cookie: true });
 
 const asyncHandler = require("express-async-handler");
 
@@ -15,6 +17,13 @@ router.get(
     return res.json(notes);
   })
 );
+
+router.post("/", csrfProtection, asyncHandler(async (req, res) => {
+  const note = await Note.create(req.body);
+  res.json(note);
+}));
+
+//TO DO: ADD VALIDATIONS TO POST
 
 
 module.exports = router;
