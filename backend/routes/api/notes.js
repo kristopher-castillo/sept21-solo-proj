@@ -40,7 +40,7 @@ router.delete("/:id(\\d+)", asyncHandler(async (req, res) => {
   const note = await Note.findByPk(noteId)
 
   if (note) {
-    return res.json(note)
+    await note.destroy()
   }
 }))
 
