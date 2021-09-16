@@ -19,14 +19,33 @@ const Navigation = ({isLoaded}) => {
   }
 
   return (
-    <ul>
-      <li>
-        <NavLink exact to="/">
-          Home
-        </NavLink>
-        {isLoaded && sessionLinks}
-      </li>
-    </ul>
+    <>
+      {/* <div className="headerContainer">
+        <a href="/">Forevernote</a>
+      </div> */}
+      <div className="sideBarContainer">
+      <ul>
+        <li>
+          <NavLink exact to="/">
+            Home
+          </NavLink>
+        </li>
+        <li>
+          <NavLink exact to="/notes">
+            Notes
+          </NavLink>
+        </li>
+        <li>
+          <NavLink exact to="/notebooks">
+            Notebooks
+          </NavLink>
+        </li>
+        <li>
+          {isLoaded && sessionLinks}
+        </li>
+      </ul>
+    </div></>
+
   );
 };
 export default Navigation;

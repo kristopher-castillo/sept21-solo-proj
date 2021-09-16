@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { login } from "../../store/session";
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from "react-router-dom";
-import "./LoginForm.module.css";
+import "./LoginForm.css";
 
 const LoginFormPage = () => {
   const dispatch = useDispatch();
@@ -32,6 +32,9 @@ const LoginFormPage = () => {
 
   return (
     <section className="form-holder">
+      <h1>
+        Sign Up
+      </h1>
       <form onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => (
@@ -39,7 +42,6 @@ const LoginFormPage = () => {
           ))}
         </ul>
         <label>
-          Username or Email
           <input
             type="text"
             placeholder="Username or Email"
@@ -49,7 +51,6 @@ const LoginFormPage = () => {
           />
         </label>
         <label>
-          Password
           <input
             type="password"
             placeholder="Password"
