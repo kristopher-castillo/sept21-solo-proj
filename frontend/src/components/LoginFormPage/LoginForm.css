@@ -1,0 +1,37 @@
+label {
+  font-weight: bold;
+  margin: 0px 5px;
+}
+
+.form-holder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5%;
+  padding: 5% 10%;
+  width: 100%;
+  background-color: rgba(128, 128, 128, .2);
+}
+
+.form {
+  margin-top: 5%;
+}
+
+input {
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-width: 0 0 1px 0;
+  border-radius: 0;
+  margin: 0 0 10px;
+  background: transparent;
+  font-size: 15px;
+}
+
+h1 {
+  padding: 15px;
+}
+
+button {
+  font-size: 15px;
+  width: 100px;
+}
