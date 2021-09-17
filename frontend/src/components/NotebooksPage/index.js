@@ -21,7 +21,7 @@ const NotebooksPage = () => {
   if (allNotebooks) {
     notebooks = allNotebooks.filter((notebook) => notebook.userId === sessionUser?.id);
     notebookList = (
-      <ul>
+      <ul className="notebookList">
         {notebooks.map((notebook) => (
           <li key={notebook.id}>
             <NavLink to={`/notebooks/${notebook.id}`}>{notebook.title}</NavLink>
@@ -36,10 +36,11 @@ const NotebooksPage = () => {
     <>
       <div>
         <div className="notebooksPageContainer">
-          <h2>Your Notebooks</h2>
           <div className="notebooksBar">
-          {notebookList}
+            <h2 className="notebooksBarTitle">Your Notebooks</h2>
+            {notebookList}
             <button
+              className="newNotebookBtn"  
               type="button">
               Add a Notebook
             </button>

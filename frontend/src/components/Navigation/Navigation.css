@@ -14,7 +14,7 @@ position: sticky;
 .sideBarContainer {
   display: flex;
   flex-direction: column;
-  margin-top: 5%;
+  margin-top: 75px;
   width: 15vw;
   background-color: black;
   height: 100vh;

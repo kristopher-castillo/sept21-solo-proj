@@ -15,6 +15,7 @@ const NotesPage = () => {
   const [showForm, setShowForm] = useState("");
   const [showNote, setShowNote] = useState('none');
   const [selectedNote, setSelectedNote] = useState('')
+  const [noteDate, setNoteDate] = useState('');
 
   const reset = () => {
     setTitle('');
@@ -30,10 +31,12 @@ const NotesPage = () => {
     dispatch(getNotes())
   }, [dispatch])
 
+  
   const selectedNoteAction = (note) => {
     setSelectedNote(note);
     setShowForm("none");
     setShowNote('');
+    setNoteDate(note.updatedAt)
   }
 
   const deleteNoteAction = (selectedNoteId) => {
@@ -75,26 +78,29 @@ const NotesPage = () => {
   } else {
     deleteButton = null;
   }
-
+  
   return (
     <>
       <div className="notesPageContainer">
         <div className="notesBar">
-          {/* <p>This is the Notes Page!</p> */}
-          <ul>
+          <h2 className="notesBarTitle">Your Notes</h2>
+          <ul className="notesList">
             {notes.map((note) => (
               <li key={note.id} onClick={() => selectedNoteAction(note)}>
                 <NavLink to={`/notes/${note.id}`}>{note.title}</NavLink>
+                <p className="notesDate">{(new Date(Date.parse(note.updatedAt))).toDateString()}</p>
               </li>
             ))}
           </ul>
           <button
+            className="addNoteBtn"
             type="button"
             onClick={() => {
               setShowForm("");
               setShowNote("none");
               history.push("/notes");
-            }}>
+            }}
+          >
             Add a Note
           </button>
         </div>
@@ -116,19 +122,19 @@ const NotesPage = () => {
               name="content"
               placeholder="Your note..."
             ></textarea>
-            <button type="submit">Submit</button>
+            <button className="submitNoteBtn" type="submit">Submit</button>
           </form>
         </div>
         <div className="noteContainer" style={{ display: showNote }}>
           <div className="noteTitle">
-            <h3
+            <h2
               contentEditable="true"
               onInput={(e) =>
                 dispatch(updateNoteTitle(e.target.innerText, selectedNote.id))
               }
             >
               {selectedNote.title}
-            </h3>
+            </h2>
             <div className="noteContent">
               <pre
                 contentEditable="true"
