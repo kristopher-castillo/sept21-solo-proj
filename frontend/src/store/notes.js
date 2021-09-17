@@ -5,6 +5,7 @@ const ADD = 'notes/ADD_NOTE';
 const DELETE = 'notes/DELETE_NOTE';
 const UPDATE = 'notes/UPDATE'
 const UPDATE_TITLE = 'notes/UPDATE_TITLE'
+const UPDATE_CONTENT = 'notes/UPDATE_CONTENT'
 
 const load = notes => ({
   type: LOAD,
@@ -23,6 +24,10 @@ const update = notes => ({
 const updateTitle = title => ({
   type: UPDATE_TITLE,
   title
+})
+const updateContent = content => ({
+  type: UPDATE_CONTENT,
+  content
 })
 
 const deleteNote = noteToDelete => ({
@@ -80,6 +85,19 @@ export const updateNoteTitle = (title, noteId) => async dispatch => {
     return updatedTitle;
   }
 }
+export const updateNoteContent = (content, noteId) => async dispatch => {
+  const response = await csrfFetch(`/api/notes/${noteId}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({content})
+  });
+
+  if (response.ok) {
+    const updatedContent = await response.json();
+    dispatch(updateContent(updatedContent));
+    return updatedContent;
+  }
+}
 
 export const deleteOneNote = (noteId) => async dispatch => {
   const response = await csrfFetch(`/api/notes/${noteId}`, {
@@ -120,6 +138,11 @@ const notesReducer = (state = initialState, action) => {
       return {
         ...state,
         title: action.title,
+      };
+    case UPDATE_CONTENT:
+      return {
+        ...state,
+        content: action.content,
       };
     case DELETE:
       const newState = { ...state };
