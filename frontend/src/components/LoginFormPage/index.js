@@ -33,7 +33,7 @@ const LoginFormPage = () => {
   return (
     <section className="form-holder">
       <h1>
-        Sign Up
+        Welcome Back!
       </h1>
       <form onSubmit={handleSubmit}>
         <ul>

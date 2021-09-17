@@ -38,6 +38,7 @@ const SignupFormPage = () => {
 
   return (
     <section className="form-holder">
+      <h1>Sign Up</h1>
       <form onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => (
@@ -45,7 +46,7 @@ const SignupFormPage = () => {
           ))}
         </ul>
         <label>
-          Username
+    
           <input
             type="text"
             placeholder="Username"
@@ -55,7 +56,7 @@ const SignupFormPage = () => {
           />
         </label>
         <label>
-          Email
+          
           <input
             type="email"
             placeholder="Email"
@@ -65,7 +66,7 @@ const SignupFormPage = () => {
           />
         </label>
         <label>
-          Password
+          
           <input
             type="password"
             placeholder="Password"
@@ -75,7 +76,7 @@ const SignupFormPage = () => {
           />
         </label>
         <label>
-          Confirm Password
+          
           <input
             type="password"
             placeholder="Confirm Password"
