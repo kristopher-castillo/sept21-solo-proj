@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getNotes,  createNewNote, updateOneNote, updateNoteTitle, deleteOneNote} from "../../store/notes";
+import { getNotes,  createNewNote, updateNoteContent, updateNoteTitle, deleteOneNote} from "../../store/notes";
 import { Redirect, NavLink, useHistory } from "react-router-dom";
 import "./NotesPage.css"
 
 const NotesPage = () => {
   const sessionUser = useSelector(state => state.session.user);
-  const allNotes = useSelector(state => state.notes.notes);
+  let allNotes = useSelector(state => state.notes.notes);
   const notes = allNotes.filter((note) => note.userId === sessionUser?.id)
   const history = useHistory();
 
@@ -15,7 +15,7 @@ const NotesPage = () => {
   const [showForm, setShowForm] = useState("");
   const [showNote, setShowNote] = useState('none');
   const [selectedNote, setSelectedNote] = useState('')
-  const [noteDate, setNoteDate] = useState('');
+  // const [currentNotes, setCurrentNotes] = useState(notes)
 
   const reset = () => {
     setTitle('');
@@ -24,19 +24,18 @@ const NotesPage = () => {
 
   const dispatch = useDispatch();
 
-  console.log("Selected Notes -----", notes)
-  console.log("User ----", sessionUser)
+  // console.log("Selected Note -----", selectedNote)
+  // console.log("User ----", sessionUser)
+  // // console.log("currentNotes ------", currentNotes)
 
   useEffect(() => {
     dispatch(getNotes())
   }, [dispatch])
-
   
   const selectedNoteAction = (note) => {
     setSelectedNote(note);
     setShowForm("none");
     setShowNote('');
-    setNoteDate(note.updatedAt)
   }
 
   const deleteNoteAction = (selectedNoteId) => {
@@ -44,6 +43,16 @@ const NotesPage = () => {
     setShowForm('');
     setShowNote('none');
     return <Redirect to="/" />;
+  }
+
+  const updateNoteTitleAction = (newTitle, noteId) => {
+    dispatch(updateNoteTitle(newTitle, noteId));
+    setTitle(newTitle);
+  }
+
+  const updateNoteContentAction = (newContent, noteId) => {
+    dispatch(updateNoteContent(newContent, noteId));
+    setContent(newContent);
   }
 
   const handleSubmit = async (e) => {
@@ -64,6 +73,16 @@ const NotesPage = () => {
   if (!notes) {
     return null;
   }
+  let notesMap = (
+        notes.map((note) => (
+          <li key={note.id} onClick={() => selectedNoteAction(note)}>
+          <NavLink to={`/notes/${note.id}`}>{note.title}</NavLink>
+          <p className="notesDate">
+            {new Date(Date.parse(note.updatedAt)).toDateString()}
+          </p>
+        </li>
+      ))
+    );
 
   let deleteButton
   if (showForm === "none") {
@@ -84,14 +103,7 @@ const NotesPage = () => {
       <div className="notesPageContainer">
         <div className="notesBar">
           <h2 className="notesBarTitle">Your Notes</h2>
-          <ul className="notesList">
-            {notes.map((note) => (
-              <li key={note.id} onClick={() => selectedNoteAction(note)}>
-                <NavLink to={`/notes/${note.id}`}>{note.title}</NavLink>
-                <p className="notesDate">{(new Date(Date.parse(note.updatedAt))).toDateString()}</p>
-              </li>
-            ))}
-          </ul>
+          <ul className="notesList">{notesMap}</ul>
           <button
             className="addNoteBtn"
             type="button"
@@ -122,15 +134,18 @@ const NotesPage = () => {
               name="content"
               placeholder="Your note..."
             ></textarea>
-            <button className="submitNoteBtn" type="submit">Submit</button>
+            <button className="submitNoteBtn" type="submit">
+              Submit
+            </button>
           </form>
         </div>
         <div className="noteContainer" style={{ display: showNote }}>
           <div className="noteTitle">
             <h2
               contentEditable="true"
-              onInput={(e) =>
-                dispatch(updateNoteTitle(e.target.innerText, selectedNote.id))
+              suppressContentEditableWarning={true}
+              onBlur={(e) =>
+                updateNoteTitleAction(e.target.innerText, selectedNote.id)
               }
             >
               {selectedNote.title}
@@ -138,7 +153,10 @@ const NotesPage = () => {
             <div className="noteContent">
               <pre
                 contentEditable="true"
-                onChange={(e) => setSelectedNote(e.target.value)}
+                suppressContentEditableWarning={true}
+                onBlur={(e) =>
+                  updateNoteContentAction(e.target.innerText, selectedNote.id)
+                }
               >
                 {selectedNote.content}
               </pre>

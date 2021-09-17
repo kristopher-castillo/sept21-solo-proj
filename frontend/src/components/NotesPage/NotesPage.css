@@ -50,7 +50,7 @@ form {
 }
 
 .notesBarTitle {
-  padding-bottom: 10px;
+  padding-bottom: 20px;
   text-decoration: underline;
   padding-left: 5px;
   font-size: larger;
@@ -81,13 +81,24 @@ button {
 }
 
 .noteTitle h2 {
-  padding-top: 5px;
+  padding: 5px 10px;
   color: rgb(59, 150, 150);
   font-size: larger;
+  overflow: hidden;
+}
+
+.noteContent {
+  padding: 5px 10px;
+  width: 615px;
+
 }
 
 .notesDate {
   font-size: .8rem;
+}
+
+.submitNoteBtn {
+  margin-top: 10px;
 }
 
 pre {

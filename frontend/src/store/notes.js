@@ -21,13 +21,13 @@ const update = notes => ({
   type: UPDATE,
   notes
 })
-const updateTitle = title => ({
+const updateTitle = notes => ({
   type: UPDATE_TITLE,
-  title
+  notes
 })
-const updateContent = content => ({
+const updateContent = notes => ({
   type: UPDATE_CONTENT,
-  content
+  notes
 })
 
 const deleteNote = noteToDelete => ({
@@ -117,6 +117,7 @@ const initialState = {
 }
 
 const notesReducer = (state = initialState, action) => {
+  let newState = {...state}
   switch (action.type) {
     case LOAD: {
       return {
@@ -135,17 +136,22 @@ const notesReducer = (state = initialState, action) => {
         notes: [...state.notes, action.updatedNote]
       }
     case UPDATE_TITLE:
+      const oldNoteTitle = newState.notes.find((note) => note.id === action.notes.id)
+      const oldNoteTitleIdx = newState.notes.indexOf(oldNoteTitle)
+      newState.notes.splice(oldNoteTitleIdx, 1, action.notes);
       return {
         ...state,
-        title: action.title,
+        notes: [...state.notes]
       };
     case UPDATE_CONTENT:
+      const oldNote = newState.notes.find((note) => note.id === action.notes.id)
+      const oldNoteIdx = newState.notes.indexOf(oldNote)
+      newState.notes.splice(oldNoteIdx, 1, action.notes);
       return {
         ...state,
-        content: action.content,
+        notes: [...state.notes]
       };
     case DELETE:
-      const newState = { ...state };
       delete action.noteToDelete;
       return newState;
     default:
