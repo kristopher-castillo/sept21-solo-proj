@@ -16,7 +16,8 @@ const NotebooksPage = () => {
   const [showNotesList, setShowNotesList] = useState('none');
   const [selectedNotebook, setSelectedNotebook] = useState('');
   const notes = allNotes.filter((note) => note.notebookId === selectedNotebook?.id);
-
+  console.log('NOTES', notes)
+  console.log('SELECTED NOTEBOOK', selectedNotebook)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,6 +31,7 @@ const NotebooksPage = () => {
   const selectedNotebookAction = notebook => {
     setSelectedNotebook(notebook);
     setShowNotebooks('none');
+    setShowNotesList('')
   }
 
   let notebooks;
