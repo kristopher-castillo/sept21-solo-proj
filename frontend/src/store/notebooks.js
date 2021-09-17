@@ -8,26 +8,26 @@ const UPDATE_TITLE = "notebooks/UPDATE_TITLE";
 
 const load = (notebooks) => ({
   type: LOAD,
-  notebooks,
+  notebooks
 });
 
 const addNotebook = (newNotebook) => ({
   type: ADD,
-  newNotebook,
+  newNotebook
 });
 
 const update = (notebooks) => ({
   type: UPDATE,
-  notebooks,
+  notebooks
 });
 const updateTitle = (title) => ({
   type: UPDATE_TITLE,
-  title,
+  title
 });
 
 const deleteNotebook = (notebookToDelete) => ({
   type: DELETE,
-  notebookToDelete,
+  notebookToDelete
 });
 
 export const getNotebooks = () => async (dispatch) => {
@@ -103,7 +103,7 @@ const notebooksReducer = (state = initialState, action) => {
     case LOAD: {
       return {
         ...state,
-        notebooks: action.notebooks,
+        notebooks: action.notebooks
       };
     }
     case ADD:
