@@ -27,6 +27,13 @@ router.post("/", asyncHandler(async (req, res) => {
 }));
 //TO DO: ADD VALIDATIONS TO POST
 
+router.get("/:id(\\d+)", asyncHandler(async (req, res) => {
+  const noteId = parseInt(req.params.id, 10);
+  const note = await Note.findByPk(noteId);
+
+  return res.json(note);
+}));
+
 router.put("/:id(\\d+)", asyncHandler(async (req, res) => {
   const noteId = parseInt(req.params.id, 10);
   const note = await Note.findByPk(noteId);
