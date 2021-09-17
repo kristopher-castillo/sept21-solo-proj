@@ -48,7 +48,10 @@ router.delete("/:id(\\d+)", asyncHandler(async (req, res) => {
 
   if (note) {
     await note.destroy()
+    const newNotes = await Note.findAll();
+    return res.json(newNotes)
   }
+
 }))
 
 
