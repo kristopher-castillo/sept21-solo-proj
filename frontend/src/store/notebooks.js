@@ -25,10 +25,6 @@ const updateTitle = (title) => ({
   title
 });
 
-const deleteNotebook = (notebookToDelete) => ({
-  type: DELETE,
-  notebookToDelete
-});
 
 export const getNotebooks = () => async (dispatch) => {
   const response = await csrfFetch("/api/notebooks");
@@ -89,7 +85,7 @@ export const deleteOneNotebook = (notebookId) => async (dispatch) => {
 
   if (response.ok) {
     const notebook = await response.json();
-    dispatch(deleteNotebook(notebook));
+    dispatch(load(notebook));
     return notebook;
   }
 };
@@ -123,9 +119,10 @@ const notebooksReducer = (state = initialState, action) => {
       };
 
     case DELETE:
-      const newState = { ...state };
-      delete action.notebookToDelete;
-      return newState;
+      return {
+        ...state,
+        notebooks: action.notebooks,
+      };
     default:
       return state;
   }

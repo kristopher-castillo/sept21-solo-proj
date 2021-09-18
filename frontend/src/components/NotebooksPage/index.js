@@ -9,13 +9,16 @@ const NotebooksPage = () => {
   const sessionUser = useSelector((state) => state.session.user);
   const allNotes = useSelector((state) => state.notes.notes);
   const allNotebooks = useSelector((state) => state.notebooks).notebooks;
+  const history = useHistory();
+
 
   const [title, setTitle] = useState('');
   const [showForm, setShowForm] = useState("");
   const [showNotebooks, setShowNotebooks] = useState('');
   const [showNotesList, setShowNotesList] = useState('none');
   const [selectedNotebook, setSelectedNotebook] = useState('');
-  const notes = allNotes.filter((note) => note.notebookId === selectedNotebook?.id);
+  const [showNote, setShowNote] = useState("none");
+  const notes = allNotes.filter((note) => note.userId === selectedNotebook.userId && note.notebookId === selectedNotebook?.id);
   console.log('NOTES', notes)
   console.log('SELECTED NOTEBOOK', selectedNotebook)
   const dispatch = useDispatch();
@@ -32,6 +35,10 @@ const NotebooksPage = () => {
     setSelectedNotebook(notebook);
     setShowNotebooks('none');
     setShowNotesList('')
+  }
+
+  const addNoteAction = note => {
+    
   }
 
   let notebooks;
@@ -76,6 +83,17 @@ const NotebooksPage = () => {
           </div>
           <div className="notesList" style={{ display: showNotesList }}>
             {notesList}
+            <button
+              className="addNoteBtn"
+              type="button"
+              onClick={() => {
+                setShowForm("");
+                setShowNote("none");
+                history.push("/notes");
+              }}
+            >
+              Add a Note
+            </button>
           </div>
         </div>
       </div>

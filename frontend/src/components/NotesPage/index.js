@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getNotes,  createNewNote, updateNoteContent, updateNoteTitle, deleteOneNote} from "../../store/notes";
+import { getNotes,  createNewNote} from "../../store/notes";
 import { Redirect, NavLink, useHistory } from "react-router-dom";
 import "./NotesPage.css"
 
@@ -13,8 +13,8 @@ const NotesPage = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [showForm, setShowForm] = useState("");
-  const [showNote, setShowNote] = useState('none');
-  const [selectedNote, setSelectedNote] = useState('')
+  // const [showNote, setShowNote] = useState('none');
+  // const [selectedNote, setSelectedNote] = useState('')
   // const [currentNotes, setCurrentNotes] = useState(notes)
 
   const reset = () => {
@@ -33,26 +33,9 @@ const NotesPage = () => {
   }, [dispatch])
   
   const selectedNoteAction = (note) => {
-    setSelectedNote(note);
+    // setSelectedNote(note);
     setShowForm("none");
-    setShowNote('');
-  }
-
-  const deleteNoteAction = (selectedNoteId) => {
-    dispatch(deleteOneNote(selectedNoteId));
-    setShowForm('');
-    setShowNote('none');
-    return <Redirect to="/" />;
-  }
-
-  const updateNoteTitleAction = (newTitle, noteId) => {
-    dispatch(updateNoteTitle(newTitle, noteId));
-    setTitle(newTitle);
-  }
-
-  const updateNoteContentAction = (newContent, noteId) => {
-    dispatch(updateNoteContent(newContent, noteId));
-    setContent(newContent);
+    // setShowNote('');
   }
 
   const handleSubmit = async (e) => {
@@ -75,7 +58,7 @@ const NotesPage = () => {
   }
   let notesMap = (
         notes.map((note) => (
-          <li key={note.id} onClick={() => selectedNoteAction(note)}>
+          <li key={note.id}>
           <NavLink to={`/notes/${note.id}`}>{note.title}</NavLink>
           <p className="notesDate">
             {new Date(Date.parse(note.updatedAt)).toDateString()}
@@ -83,20 +66,6 @@ const NotesPage = () => {
         </li>
       ))
     );
-
-  let deleteButton
-  if (showForm === "none") {
-    deleteButton = (
-      <button type="button" onClick={() => {
-        deleteNoteAction(selectedNote.id)
-        history.push('/notes')
-      }}>
-        Delete
-      </button>
-    );
-  } else {
-    deleteButton = null;
-  }
   
   return (
     <>
@@ -109,7 +78,7 @@ const NotesPage = () => {
             type="button"
             onClick={() => {
               setShowForm("");
-              setShowNote("none");
+              // setShowNote("none");
               history.push("/notes");
             }}
           >
@@ -138,31 +107,6 @@ const NotesPage = () => {
               Submit
             </button>
           </form>
-        </div>
-        <div className="noteContainer" style={{ display: showNote }}>
-          <div className="noteTitle">
-            <h2
-              contentEditable="true"
-              suppressContentEditableWarning={true}
-              onBlur={(e) =>
-                updateNoteTitleAction(e.target.innerText, selectedNote.id)
-              }
-            >
-              {selectedNote.title}
-            </h2>
-            <div className="noteContent">
-              <pre
-                contentEditable="true"
-                suppressContentEditableWarning={true}
-                onBlur={(e) =>
-                  updateNoteContentAction(e.target.innerText, selectedNote.id)
-                }
-              >
-                {selectedNote.content}
-              </pre>
-              {deleteButton}
-            </div>
-          </div>
         </div>
       </div>
     </>

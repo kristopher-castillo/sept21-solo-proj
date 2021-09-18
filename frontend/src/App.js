@@ -6,6 +6,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import Navigation from "./components/Navigation";
 import HomePage from './components/HomePage';
 import NotesPage from "./components/NotesPage";
+import NotesDetail from "./components/NotesDetail";
 import NotebooksPage from "./components/NotebooksPage";
 import * as sessionActions from "./store/session";
 
@@ -30,8 +31,11 @@ function App() {
         <Route path="/signup">
           <SignupFormPage />
         </Route>
-        <Route path="/notes">
+        <Route path="/notes" exact>
           <NotesPage />
+        </Route>
+        <Route path="/notes/:id">
+          <NotesDetail />
         </Route>
         <Route path="/notebooks">
           <NotebooksPage />

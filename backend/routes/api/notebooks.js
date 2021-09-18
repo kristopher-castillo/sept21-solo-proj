@@ -46,6 +46,8 @@ router.delete(
 
     if (notebook) {
       await notebook.destroy();
+      const newNotebooks = await Notebook.findAll();
+      return res.json(newNotebooks);
     }
   })
 );

@@ -30,10 +30,6 @@ const updateContent = notes => ({
   notes
 })
 
-const deleteNote = noteToDelete => ({
-  type: DELETE,
-  noteToDelete
-})
 
 export const getNotes = () => async dispatch => {
   const response = await csrfFetch('/api/notes');
@@ -43,6 +39,15 @@ export const getNotes = () => async dispatch => {
     dispatch(load(notes));
   }
 }
+export const getOneNote = (noteId) => async dispatch => {
+  const response = await csrfFetch(`/api/notes/${noteId}`);
+
+  if (response.ok) {
+    const note = await response.json();
+    dispatch(load(note));
+  }
+}
+
 
 export const createNewNote = (noteData) => async dispatch => {
   const response = await csrfFetch("/api/notes", {
@@ -107,7 +112,7 @@ export const deleteOneNote = (noteId) => async dispatch => {
 
   if (response.ok) {
     const note = await response.json();
-    dispatch(deleteNote(note));
+    dispatch(load(note));
     return note;
   }
 }
@@ -152,8 +157,10 @@ const notesReducer = (state = initialState, action) => {
         notes: [...state.notes]
       };
     case DELETE:
-      delete action.noteToDelete;
-      return newState;
+      return {
+        ...state,
+        notes: action.notes,
+      };
     default:
       return state;
   }
