@@ -7,7 +7,7 @@ body {
 .notesPageContainer {
   display: flex;
   margin-left: 15;
-  width: 85vw;
+  width: 25vw;
   margin-top: 75px;
 }
 
@@ -40,14 +40,14 @@ form {
   height: 200px;
   padding-bottom: 10px;
 }
-.newNoteContainer {
+/* .newNoteContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: rgba(128, 128, 128, .2);
   width: 60vw;
   padding-top: 10px;
-}
+} */
 
 .notesBarTitle {
   padding-bottom: 20px;
@@ -76,8 +76,8 @@ button {
   flex-direction: column;
   align-items: center;
   background-color: rgba(128, 128, 128, .2);
-  width: 60%;
-
+  width: 80%;
+  margin-top: 75px;
 }
 
 .noteTitle h2 {

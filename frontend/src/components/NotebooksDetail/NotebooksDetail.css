@@ -1,0 +1,36 @@
+
+.notebooksPageContainer {
+  display: flex;
+  margin-left: 15;
+  width: 85%;
+  margin-top: 75px;
+}
+
+.notebooksNotesBar {
+  /* display: flex;
+  flex-direction: row; */
+  width: 85vw;
+  height: 100vh;
+  background-color: rgba(128, 128, 128, .3);
+  padding-top: 10px;
+}
+
+.notebooksBarTitle {
+  padding-bottom: 10px;
+  text-decoration: underline;
+  padding-left: 5px;
+  font-size: larger;
+  color: rgb(59, 150, 150);
+  width: 200px;
+}
+
+.notebookList {
+  text-decoration: none;
+  padding-bottom: 50px;
+}
+
+.newNotebookBtn {
+  width: 300px;
+  margin-left: 5px;
+
+}
