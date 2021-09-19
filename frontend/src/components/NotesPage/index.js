@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getNotes,  createNewNote} from "../../store/notes";
+import { getNotes, createNewNote } from "../../store/notes";
+import { getNotebooks } from "../../store/notebooks";
 import { Redirect, NavLink, useHistory } from "react-router-dom";
 import "./NotesPage.css"
 
 const NotesPage = () => {
   const sessionUser = useSelector(state => state.session.user);
   let allNotes = useSelector(state => state.notes.notes);
+  const allNotebooks = useSelector((state) => state.notebooks.notebooks);
+  const notebooks = allNotebooks.filter((notebook) => notebook.userId === sessionUser?.id);
   const notes = allNotes.filter((note) => note.userId === sessionUser?.id)
   const history = useHistory();
+  console.log("Notebooks", notebooks)
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [showForm, setShowForm] = useState("");
-  // const [showNote, setShowNote] = useState('none');
-  // const [selectedNote, setSelectedNote] = useState('')
-  // const [currentNotes, setCurrentNotes] = useState(notes)
+  const [selectedNotebook, setSelectedNotebook] = useState(notebooks[0].id);
+
+  console.log('SelectedNotebook', selectedNotebook);
 
   const reset = () => {
     setTitle('');
@@ -24,18 +28,16 @@ const NotesPage = () => {
 
   const dispatch = useDispatch();
 
-  // console.log("Selected Note -----", selectedNote)
-  // console.log("User ----", sessionUser)
-  // // console.log("currentNotes ------", currentNotes)
-
   useEffect(() => {
     dispatch(getNotes())
   }, [dispatch])
+
+  useEffect(() => {
+    dispatch(getNotebooks());
+  }, [dispatch]);
   
   const selectedNoteAction = (note) => {
-    // setSelectedNote(note);
     setShowForm("none");
-    // setShowNote('');
   }
 
   const handleSubmit = async (e) => {
@@ -44,7 +46,7 @@ const NotesPage = () => {
       title,
       content,
       userId: sessionUser.id,
-      notebookId: 1
+      notebookId: selectedNotebook
     }
     const lastNote = await dispatch(createNewNote(newNote));
     selectedNoteAction(lastNote);
@@ -66,7 +68,9 @@ const NotesPage = () => {
           </p>
         </li>
       ))
-    );
+  );
+  
+  // const currentNotebookIds = 
   
   return (
     <>
@@ -79,7 +83,6 @@ const NotesPage = () => {
             type="button"
             onClick={() => {
               setShowForm("");
-              // setShowNote("none");
               history.push("/notes");
             }}
           >
@@ -104,9 +107,17 @@ const NotesPage = () => {
               name="content"
               placeholder="Your note..."
             ></textarea>
-            <button className="submitNoteBtn" type="submit">
-              Submit
-            </button>
+            <div className="newNoteBtns">
+              <button className="submitNoteBtn" type="submit">
+                Submit
+              </button>
+              <label>Select a notebook to safely store your note:</label>
+              <select name="chooseNotebookBtn" id="chooseNotebookBtn" onChange={(e) => setSelectedNotebook(e.target.value)}>
+                {notebooks.map((notebook) => (
+                  <option key={notebook.id} value={notebook.id}>{notebook.title}</option>
+                ))}
+              </select>
+            </div>
           </form>
         </div>
       </div>

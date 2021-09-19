@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     notebookId: {
       type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: false
     }
   }, {});
   Note.associate = function(models) {
