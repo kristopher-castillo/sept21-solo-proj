@@ -7,6 +7,7 @@ import {
   deleteOneNote,
 } from "../../store/notes";
 import { useParams, NavLink, useHistory, Redirect } from "react-router-dom";
+import "./NotesDetail.css";
 
 
 const NotesDetail = () => {

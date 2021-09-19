@@ -17,7 +17,7 @@ const NotesPage = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [showForm, setShowForm] = useState("");
-  const [selectedNotebook, setSelectedNotebook] = useState(notebooks[0].id);
+  const [selectedNotebook, setSelectedNotebook] = useState(notebooks[0]?.id);
 
   console.log('SelectedNotebook', selectedNotebook);
 

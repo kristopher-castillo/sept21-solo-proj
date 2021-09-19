@@ -43,8 +43,9 @@
 }
 
 .noteContent {
-  padding: 5px 10px;
+  padding: 5px 20px;
   width: 615px;
+  background-color: rgba(255, 255, 255, .2);
 }
 
 .notebookNoteContainer {

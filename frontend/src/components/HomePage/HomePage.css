@@ -1,0 +1,84 @@
+.homePageBody {
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+  height: 80vh;
+  /* margin-top: 75px; */
+}
+
+.notesView {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 30vh;
+  width: 75vw;
+  background-color: rgba(255, 255, 255, .2);
+  margin: 10px 75px;
+}
+
+.notebooksView {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 20vh;
+  width: 75vw;
+  background-color: rgba(255, 255, 255, .2);
+  margin: 10px 75px;
+
+}
+
+.notebooksViewTitle, .notesViewTitle {
+  text-align: center;
+  width: 75vw;
+  margin: 10px 75px;
+}
+
+.noteBtn {
+  width: 150px;
+  height: 150px;
+  border-radius: 1em;
+  margin: 10px 10px;
+  padding: 2.5px;
+}
+.notebookBtn {
+  width: 200px;
+  border-radius: 1em;
+  height: 100px;
+  margin: 10px 10px;
+  padding: 2px;
+}
+
+img {
+  width: 90vw;
+  height: 100px;
+}
+
+.welcomeContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 90vw;
+  height: 65vh;
+  
+}
+
+.welcomeLinks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background-color: rgba(255, 255, 255, .2);
+  width: 45vw;
+  height: 30vh;
+}
+
+.welcomeLinks a {
+  font-size: 1.5em;
+}
+
+.welcomeLinks h1 {
+  color: rgb(59, 150, 150);
+}

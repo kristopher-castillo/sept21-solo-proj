@@ -80,23 +80,23 @@ const NotebooksPage = () => {
             >
               Add a Notebook
             </button>
-          </div>
-          <div className="newNoteContainer" style={{ display: showForm }}>
-            <h1>New Notebook</h1>
-            <form onSubmit={handleSubmit}>
-              <input
-                className="titleInput"
-                value={title}
-                type="text"
-                onChange={(e) => setTitle(e.target.value)}
-                name="title"
-                placeholder="Add your title here"
-              />
+            <div className="newNoteContainer" style={{ display: showForm }}>
+              <h1>New Notebook</h1>
+              <form onSubmit={handleSubmit}>
+                <input
+                  className="titleInput"
+                  value={title}
+                  type="text"
+                  onChange={(e) => setTitle(e.target.value)}
+                  name="title"
+                  placeholder="Add your title here"
+                />
 
-              <button className="submitNoteBtn" type="submit">
-                Submit
-              </button>
-            </form>
+                <button className="submitNoteBtn" type="submit">
+                  Submit
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
