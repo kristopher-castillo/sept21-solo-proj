@@ -17,10 +17,10 @@ router.get(
 );
 
 router.post("/", asyncHandler(async (req, res) => {
-  const { title, content, userId } = req.body
+  const { title, content, userId, notebookId } = req.body
 
   console.log("------------", req.body)
-  const note = await Note.build({ title, content, userId});
+  const note = await Note.build({ title, content, userId, notebookId});
   console.log("Note from route", note)
   await note.save();
   res.json(note);

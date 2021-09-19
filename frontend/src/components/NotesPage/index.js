@@ -43,7 +43,8 @@ const NotesPage = () => {
     const newNote = {
       title,
       content,
-      userId: sessionUser.id
+      userId: sessionUser.id,
+      notebookId: 1
     }
     const lastNote = await dispatch(createNewNote(newNote));
     selectedNoteAction(lastNote);
