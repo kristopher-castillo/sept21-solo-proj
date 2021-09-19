@@ -6,13 +6,19 @@ import {
   updateNotebookTitle,
   deleteOneNotebook
 } from "../../store/notebooks";
+import {
+  getNotes,
+  updateNoteContent,
+  updateNoteTitle,
+  deleteOneNote,
+} from "../../store/notes";
 import "./NotebooksDetail.css";
 
 
 
 const NotebooksDetail = () => {
   const sessionUser = useSelector((state) => state.session.user);
-  const allNotes = useSelector((state) => state.notes.notes);
+  const notesState = useSelector((state) => state.notes.notes);
   const notebooksState = useSelector((state) => state.notebooks.notebooks);
   const notebooks = notebooksState.filter((notebook) => notebook?.userId === sessionUser?.id)
   const { id } = useParams();
@@ -20,9 +26,11 @@ const NotebooksDetail = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const [showNotesList, setShowNotesList] = useState("none");
+  const [showNote, setShowNote] = useState('none')
+  const [showWelcome, setShowWelcome] = useState('');
+  const [selectedNote, setSelectedNote] = useState('');
 
-  const notes = allNotes.filter(
+  const notes = notesState.filter(
     (note) =>
       note.userId === currentNotebook?.userId &&
       note.notebookId === currentNotebook?.id
@@ -38,6 +46,25 @@ const NotebooksDetail = () => {
     dispatch(deleteOneNotebook(selectedNoteId));
   };
 
+  const updateNoteTitleAction = (newTitle, noteId) => {
+    dispatch(updateNoteTitle(newTitle, noteId));
+    // setTitle(newTitle);
+  };
+
+  const updateNoteContentAction = (newContent, noteId) => {
+    dispatch(updateNoteContent(newContent, noteId));
+    // setContent(newContent);
+  };
+
+  const deleteNoteAction = (selectedNoteId) => {
+    dispatch(deleteOneNote(selectedNoteId));
+  };
+
+  const selectedNoteAction = (note) => {
+    setSelectedNote(note);
+    setShowWelcome('none');
+    setShowNote('');
+  }
 
   useEffect(() => {
     dispatch(getNotebooks());
@@ -48,8 +75,8 @@ const NotebooksDetail = () => {
   notesList = (
     <ul className="notesList">
       {notes.map((note) => (
-        <li key={note.id}>
-          <NavLink to={`/notes/${note.id}`}>{note.title}</NavLink>
+        <li key={note.id} onClick={() => selectedNoteAction(note)}>
+          {note.title}
           <p className="notesDate">
             {new Date(Date.parse(note.updatedAt)).toDateString()}
           </p>
@@ -58,11 +85,22 @@ const NotebooksDetail = () => {
     </ul>
   );
 
-  const deleteButton = (
+  const deleteNotebookButton = (
     <button
       type="button"
       onClick={() => {
         deleteNotebooksAction(currentNotebook.id);
+        history.push("/notebooks");
+      }}
+    >
+      Delete
+    </button>
+  );
+  const deleteNoteButton = (
+    <button
+      type="button"
+      onClick={() => {
+        deleteNoteAction(currentNotebook.id);
         history.push("/notebooks");
       }}
     >
@@ -79,7 +117,10 @@ const NotebooksDetail = () => {
             contentEditable="true"
             suppressContentEditableWarning={true}
             onBlur={(e) =>
-              updateNotebooksTitleAction(e.target.innerText, currentNotebook?.id)
+              updateNotebooksTitleAction(
+                e.target.innerText,
+                currentNotebook?.id
+              )
             }
           >
             {currentNotebook?.title}
@@ -94,7 +135,35 @@ const NotebooksDetail = () => {
           >
             Add a Note
           </button>
-          {deleteButton}
+          {deleteNotebookButton}
+        </div>
+      </div>
+      <div className="notebookWelcome" style={{display: showWelcome}}>
+            <p>Choose a Note!</p>
+      </div>
+      <div className="notebookNoteContainer" style={{display: showNote}}>
+        <div className="noteTitle">
+          <h2
+            contentEditable="true"
+            suppressContentEditableWarning={true}
+            onBlur={(e) =>
+              updateNoteTitleAction(e.target.innerText, selectedNote?.id)
+            }
+          >
+            {selectedNote?.title}
+          </h2>
+          <div className="noteContent">
+            <pre
+              contentEditable="true"
+              suppressContentEditableWarning={true}
+              onBlur={(e) =>
+                updateNoteContentAction(e.target.innerText, selectedNote?.id)
+              }
+            >
+              {selectedNote?.content}
+            </pre>
+            {deleteNoteButton}
+          </div>
         </div>
       </div>
     </div>

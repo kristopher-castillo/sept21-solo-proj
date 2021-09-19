@@ -2,14 +2,14 @@
 .notebooksPageContainer {
   display: flex;
   margin-left: 15;
-  width: 85%;
+  width: 100vw;
   margin-top: 75px;
 }
 
 .notebooksNotesBar {
   /* display: flex;
   flex-direction: row; */
-  width: 85vw;
+  width: 25vw;
   height: 100vh;
   background-color: rgba(128, 128, 128, .3);
   padding-top: 10px;
@@ -32,5 +32,23 @@
 .newNotebookBtn {
   width: 300px;
   margin-left: 5px;
+
+}
+
+.noteTitle h2 {
+  padding: 5px 10px;
+  color: rgb(59, 150, 150);
+  font-size: larger;
+  overflow: hidden;
+}
+
+.noteContent {
+  padding: 5px 10px;
+  width: 615px;
+}
+
+.notebookNoteContainer {
+  background-color: rgba(128, 128, 128, .2);
+  width: 100%;
 
 }

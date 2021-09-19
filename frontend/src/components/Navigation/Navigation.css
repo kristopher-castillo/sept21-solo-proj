@@ -16,8 +16,7 @@ position: sticky;
   flex-direction: column;
   margin-top: 75px;
   width: 15vw;
-  background-color: black;
-  height: 100vh;
+  background-color: black;;
   padding-top: 10px;
   padding-left: 10px;
 }
