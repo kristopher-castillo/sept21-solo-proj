@@ -23,6 +23,14 @@ module.exports = {
             updatedAt: new Date(),
           },
           {
+            title: "Best Friends",
+            content: "No one",
+            userId: 1,
+            notebookId: 1,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          },
+          {
             title: "Daily Affirmation",
             content: "Authentic prism taiyaki farm-to-table chartreuse. Hell of tofu cray fanny pack williamsburg seitan selfies chia tbh polaroid vice tousled copper mug. Bushwick activated charcoal narwhal, XOXO artisan lyft tousled actually pickled blue bottle try-hard man braid shabby chic. Yr synth health goth chia gentrify, actually banjo. Hexagon craft beer narwhal marfa. Pour-over squid gentrify polaroid. Crucifix hashtag enamel pin fixie ethical VHS copper mug messenger bag. Stumptown lyft godard vape kombucha cornhole, organic dreamcatcher pop-up locavore lomo. Adaptogen keytar jean shorts yuccie master cleanse edison bulb microdosing pabst lyft.",
             userId: 2,
