@@ -1,0 +1,30 @@
+.notebooksPageContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100vw;
+}
+
+.detailNoteContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  background-color: rgba(128, 128, 128, .2);
+  width: 100%;
+}
+
+.notesBar {
+  /* display: flex;
+  flex-direction: row; */
+  width: 25vw;
+  height: 100%;
+  background-color: rgba(128, 128, 128, .3);
+  padding-top: 10px;
+}
+
+.noteTitle h2 {
+  padding: 5px 10px;
+  color: rgb(59, 150, 150);
+  font-size: larger;
+  overflow: hidden;
+}

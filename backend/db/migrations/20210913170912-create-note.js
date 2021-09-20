@@ -23,7 +23,7 @@ module.exports = {
       },
       notebookId: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {model: 'Notebooks'}
       },
       createdAt: {

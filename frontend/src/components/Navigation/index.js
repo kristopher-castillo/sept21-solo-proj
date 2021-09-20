@@ -8,7 +8,26 @@ const Navigation = ({isLoaded}) => {
   const sessionUser = useSelector((state) => state.session.user);
   let sessionLinks;
   if (sessionUser) {
-    sessionLinks = <ProfileButton user={sessionUser} />;
+    sessionLinks = (
+      <>
+      <ProfileButton user={sessionUser} />
+      <li>
+          <NavLink exact to="/">
+            Home
+          </NavLink>
+        </li>
+        <li>
+          <NavLink exact to="/notes">
+            Notes
+          </NavLink>
+        </li>
+        <li>
+          <NavLink exact to="/notebooks">
+            Notebooks
+          </NavLink>
+        </li>
+      </>
+    );
   } else {
     sessionLinks = (
       <ul>
@@ -25,24 +44,10 @@ const Navigation = ({isLoaded}) => {
       </div> */}
       <div className="sideBarContainer">
       <ul>
-        <li>
-          <NavLink exact to="/">
-            Home
-          </NavLink>
-        </li>
-        <li>
-          <NavLink exact to="/notes">
-            Notes
-          </NavLink>
-        </li>
-        <li>
-          <NavLink exact to="/notebooks">
-            Notebooks
-          </NavLink>
-        </li>
-        <li>
-          {isLoaded && sessionLinks}
-        </li>
+        
+        
+        {isLoaded && sessionLinks}
+        
       </ul>
     </div></>
 

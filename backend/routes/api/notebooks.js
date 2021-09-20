@@ -27,6 +27,16 @@ router.post(
 );
 //TO DO: ADD VALIDATIONS TO POST
 
+router.get(
+  "/:id(\\d+)",
+  asyncHandler(async (req, res) => {
+    const notebookId = parseInt(req.params.id, 10);
+    const notebook = await Notebook.findByPk(notebookId);
+
+    return res.json(notebook);
+  })
+);
+
 router.put(
   "/:id(\\d+)",
   asyncHandler(async (req, res) => {
@@ -46,6 +56,8 @@ router.delete(
 
     if (notebook) {
       await notebook.destroy();
+      const newNotebooks = await Notebook.findAll();
+      return res.json(newNotebooks);
     }
   })
 );

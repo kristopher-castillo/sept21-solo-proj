@@ -17,15 +17,22 @@ router.get(
 );
 
 router.post("/", asyncHandler(async (req, res) => {
-  const { title, content, userId } = req.body
+  const { title, content, userId, notebookId } = req.body
 
   console.log("------------", req.body)
-  const note = await Note.build({ title, content, userId});
+  const note = await Note.build({ title, content, userId, notebookId});
   console.log("Note from route", note)
   await note.save();
   res.json(note);
 }));
 //TO DO: ADD VALIDATIONS TO POST
+
+router.get("/:id(\\d+)", asyncHandler(async (req, res) => {
+  const noteId = parseInt(req.params.id, 10);
+  const note = await Note.findByPk(noteId);
+
+  return res.json(note);
+}));
 
 router.put("/:id(\\d+)", asyncHandler(async (req, res) => {
   const noteId = parseInt(req.params.id, 10);
@@ -41,7 +48,10 @@ router.delete("/:id(\\d+)", asyncHandler(async (req, res) => {
 
   if (note) {
     await note.destroy()
+    const newNotes = await Note.findAll();
+    return res.json(newNotes)
   }
+
 }))
 
 

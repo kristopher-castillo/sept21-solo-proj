@@ -8,27 +8,23 @@ const UPDATE_TITLE = "notebooks/UPDATE_TITLE";
 
 const load = (notebooks) => ({
   type: LOAD,
-  notebooks,
+  notebooks
 });
 
 const addNotebook = (newNotebook) => ({
   type: ADD,
-  newNotebook,
+  newNotebook
 });
 
 const update = (notebooks) => ({
   type: UPDATE,
-  notebooks,
+  notebooks
 });
 const updateTitle = (title) => ({
   type: UPDATE_TITLE,
-  title,
+  title
 });
 
-const deleteNotebook = (notebookToDelete) => ({
-  type: DELETE,
-  notebookToDelete,
-});
 
 export const getNotebooks = () => async (dispatch) => {
   const response = await csrfFetch("/api/notebooks");
@@ -89,7 +85,7 @@ export const deleteOneNotebook = (notebookId) => async (dispatch) => {
 
   if (response.ok) {
     const notebook = await response.json();
-    dispatch(deleteNotebook(notebook));
+    dispatch(load(notebook));
     return notebook;
   }
 };
@@ -103,7 +99,7 @@ const notebooksReducer = (state = initialState, action) => {
     case LOAD: {
       return {
         ...state,
-        notebooks: action.notebooks,
+        notebooks: action.notebooks
       };
     }
     case ADD:
@@ -123,9 +119,10 @@ const notebooksReducer = (state = initialState, action) => {
       };
 
     case DELETE:
-      const newState = { ...state };
-      delete action.notebookToDelete;
-      return newState;
+      return {
+        ...state,
+        notebooks: action.notebooks,
+      };
     default:
       return state;
   }
