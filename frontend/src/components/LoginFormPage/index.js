@@ -30,6 +30,20 @@ const LoginFormPage = () => {
     })
   }
 
+  const handleDemo = () => {
+    setErrors([]);
+
+    const payload = {
+      credential: "Light",
+      password: "password",
+    };
+
+    return dispatch(login(payload)).catch(async (res) => {
+      const data = await res.json();
+      if (data && data.errors) setErrors(data.errors);
+    });
+  }
+
   return (
     <section className="form-holder">
       <h1>
@@ -61,6 +75,13 @@ const LoginFormPage = () => {
         </label>
         <button type="submit">Log In</button>
       </form>
+      <button
+        onClick={() => {
+          handleDemo();
+        }}
+      >
+        Demo User
+      </button>
     </section>
   );
 };
