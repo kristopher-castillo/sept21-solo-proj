@@ -6,8 +6,10 @@ body {
 
 .notesPageContainer {
   display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
   margin-left: 15;
-  width: 25vw;
+  width: 100vw;
   margin-top: 75px;
 }
 

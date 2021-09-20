@@ -108,13 +108,14 @@ const NotebooksDetail = () => {
 
   const deleteNotebookButton = (
     <button
+      className="deleteNotebookBtn"
       type="button"
       onClick={() => {
         deleteNotebooksAction(currentNotebook.id);
         history.push(`/notebooks/`);
       }}
     >
-      Delete
+      Delete this Notebook
     </button>
   );
   const deleteNoteButton = (

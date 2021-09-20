@@ -59,6 +59,11 @@ const NotesPage = () => {
   if (!notes) {
     return null;
   }
+
+  if (!selectedNotebook) {
+    setSelectedNotebook(1);
+  }
+
   let notesMap = (
         notes.map((note) => (
           <li key={note.id}>

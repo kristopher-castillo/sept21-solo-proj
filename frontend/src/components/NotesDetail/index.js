@@ -73,7 +73,7 @@ const NotesDetail = () => {
 
   return (
     <>
-      <div className="notesPageContainer">
+      <div className="notebooksPageContainer">
         <div className="notesBar">
           <h2 className="notesBarTitle">Your Notes</h2>
           <ul className="notesList">{notesMap}</ul>
@@ -87,29 +87,30 @@ const NotesDetail = () => {
             Add a Note
           </button>
         </div>
-      </div>
-      <div className="noteContainer">
-        <div className="noteTitle">
-          <h2
-            contentEditable="true"
-            suppressContentEditableWarning={true}
-            onBlur={(e) =>
-              updateNoteTitleAction(e.target.innerText, currentNote?.id)
-            }
-          >
-            {currentNote?.title}
-          </h2>
-          <div className="noteContent">
-            <pre
+
+        <div className="detailNoteContainer">
+          <div className="noteTitle">
+            <h2
               contentEditable="true"
               suppressContentEditableWarning={true}
               onBlur={(e) =>
-                updateNoteContentAction(e.target.innerText, currentNote?.id)
+                updateNoteTitleAction(e.target.innerText, currentNote?.id)
               }
             >
-              {currentNote?.content}
-            </pre>
-            {deleteButton}
+              {currentNote?.title}
+            </h2>
+            <div className="noteContent">
+              <pre
+                contentEditable="true"
+                suppressContentEditableWarning={true}
+                onBlur={(e) =>
+                  updateNoteContentAction(e.target.innerText, currentNote?.id)
+                }
+              >
+                {currentNote?.content}
+              </pre>
+              {deleteButton}
+            </div>
           </div>
         </div>
       </div>

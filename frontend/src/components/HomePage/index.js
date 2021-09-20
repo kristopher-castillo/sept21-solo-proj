@@ -77,13 +77,13 @@ const HomePage = () => {
           </div>
           <div className="homePageBody">
             <div className="notesViewTitle">
-              <h2 onClick={() => history.push(`/notes`)}>Your Notes</h2>
+              <p onClick={() => history.push(`/notes`)}>Your Notes</p>
             </div>
             <div className="notesView">
               {notesMap}
             </div>
             <div className="notebooksViewTitle">
-              <h2 onClick={() => history.push(`/notebooks`)}>Your Notebooks</h2>
+              <p onClick={() => history.push(`/notebooks`)}>Your Notebooks</p>
             </div>
             <div className="notebooksView">{notebooksMap}</div>
           </div>

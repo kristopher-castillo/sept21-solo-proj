@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getNotes } from "../../store/notes";
+// import { getNotes } from "../../store/notes";
 import { getNotebooks, createNewNotebook } from "../../store/notebooks";
 import { Redirect, NavLink, useHistory } from "react-router-dom";
 import "./NotebooksPage.css"
@@ -14,7 +14,7 @@ const NotebooksPage = () => {
 
   const [title, setTitle] = useState('');
   const [showForm, setShowForm] = useState("none");
-  const [selectedNotebook, setSelectedNotebook] = useState('');
+  // const [selectedNotebook, setSelectedNotebook] = useState('');
   // const [showNotebook, setShowNotebook] = useState("none");
   // const notes = allNotes.filter((note) => note.userId === selectedNotebook.userId && note.notebookId === selectedNotebook?.id);
 
@@ -32,10 +32,10 @@ const NotebooksPage = () => {
   //    dispatch(getNotes());
   //  }, [dispatch]);
 
-  const selectedNotebookAction = notebook => {
-    setSelectedNotebook(notebook);
-    // setShowNotesList('')
-  }
+  // const selectedNotebookAction = notebook => {
+  //   setSelectedNotebook(notebook);
+  //   // setShowNotesList('')
+  // }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,7 +44,7 @@ const NotebooksPage = () => {
       userId: sessionUser.id
     };
     const lastNotebook = await dispatch(createNewNotebook(newNotebook));
-    selectedNotebookAction(lastNotebook);
+    // selectedNotebookAction(lastNotebook);
     history.push(`/notebooks/${lastNotebook.id}`);
     reset();
   };
@@ -58,7 +58,7 @@ const NotebooksPage = () => {
     notebookList = (
       <ul className="notebookList">
         {notebooks.map((notebook) => (
-          <li key={notebook.id} onClick={() => selectedNotebookAction(notebook)}>
+          <li key={notebook.id}>
             <NavLink to={`/notebooks/${notebook.id}`}>{notebook.title}</NavLink>
           </li>
         ))}
@@ -68,36 +68,34 @@ const NotebooksPage = () => {
 
   return (
     <>
-      <div>
-        <div className="notebooksPageContainer">
-          <div className="notebooksBar">
-            <h2 className="notebooksBarTitle">Your Notebooks</h2>
-            {notebookList}
-            <button
-              className="newNotebookBtn"
-              type="button"
-              onClick={() => setShowForm("")}
-            >
-              Add a Notebook
-            </button>
-            <div className="newNoteContainer" style={{ display: showForm }}>
-              <h1>New Notebook</h1>
-              <form onSubmit={handleSubmit}>
-                <input
-                  className="titleInput"
-                  value={title}
-                  type="text"
-                  onChange={(e) => setTitle(e.target.value)}
-                  name="title"
-                  placeholder="Add your title here"
-                />
+      <div className="notebooksPageContainer">
+        <div className="notebooksBar">
+          <h2 className="notebooksBarTitle">Your Notebooks</h2>
+          {notebookList}
+          <button
+            className="newNotebookBtn"
+            type="button"
+            onClick={() => setShowForm("")}
+          >
+            Add a Notebook
+          </button>
+        <div className="newNotebookContainer" style={{ display: showForm }}>
+          <h1>New Notebook</h1>
+          <form onSubmit={handleSubmit}>
+            <input
+              className="titleInput"
+              value={title}
+              type="text"
+              onChange={(e) => setTitle(e.target.value)}
+              name="title"
+              placeholder="Add your title here"
+            />
 
-                <button className="submitNoteBtn" type="submit">
-                  Submit
-                </button>
-              </form>
-            </div>
-          </div>
+            <button className="submitNoteBtn" type="submit">
+              Submit
+            </button>
+          </form>
+        </div>
         </div>
       </div>
     </>
